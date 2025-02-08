@@ -1,22 +1,40 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CreateSuperheroDTO, Superhero } from './dto/superhero.dto';
 
 describe('AppController', () => {
-  let appController: AppController;
+  let controller: AppController;
 
-  beforeEach(async () => {
+  const serviceMock = {
+    create: jest.fn(),
+    findAllOrderedByHumilityScore: jest.fn(),
+  };
+
+  beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [
+        {
+          provide: AppService,
+          useValue: serviceMock,
+        },
+      ],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    controller = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
+  it('should create a new superhero', () => {
+    const reqBody: CreateSuperheroDTO = {
+      name: 'superhero',
+      superpower: 'superpower',
+      humilityScore: 10,
+    };
+
+    const expectedRes: Superhero = { id: 0, ...reqBody };
+
+    jest.spyOn(serviceMock, 'create').mockReturnValueOnce(expectedRes);
+    expect(controller.create(reqBody)).toEqual(expectedRes);
   });
 });
