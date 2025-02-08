@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppService } from './app.service';
-import { CreateSuperheroDTO, Superhero } from './dto/superhero.dto';
-import { AppRepository } from './app.repository';
+import { SuperheroService } from '../superhero.service';
+import { SuperheroRepository } from '../superhero.repository';
+import { CreateSuperheroDTO, Superhero } from '../dto/superhero.dto';
 
-describe('AppService', () => {
-  let service: AppService;
+describe('SuperheroService', () => {
+  let service: SuperheroService;
 
   const repositoryMock = {
     create: jest.fn(),
@@ -14,15 +14,15 @@ describe('AppService', () => {
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
       providers: [
-        AppService,
+        SuperheroService,
         {
-          provide: AppRepository,
+          provide: SuperheroRepository,
           useValue: repositoryMock,
         },
       ],
     }).compile();
 
-    service = app.get<AppService>(AppService);
+    service = app.get<SuperheroService>(SuperheroService);
   });
 
   it('should create a new superhero', () => {

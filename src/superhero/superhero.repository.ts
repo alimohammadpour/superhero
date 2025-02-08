@@ -1,6 +1,7 @@
+import { RepositoryInterface } from 'src/interfaces/repository.interface';
 import { CreateSuperheroDTO, Superhero } from './dto/superhero.dto';
 
-export class AppRepository {
+export class SuperheroRepository implements RepositoryInterface<Superhero> {
   private superheroes: Superhero[] = []; // In-memory database
 
   create(superhero: CreateSuperheroDTO): Superhero {

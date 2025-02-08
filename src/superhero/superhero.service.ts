@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSuperheroDTO, Superhero } from './dto/superhero.dto';
-import { AppRepository } from './app.repository';
+import { SuperheroRepository } from './superhero.repository';
 
 @Injectable()
-export class AppService {
-  constructor(private readonly repository: AppRepository) {}
+export class SuperheroService {
+  constructor(private readonly repository: SuperheroRepository) {}
 
   create(superheroDto: CreateSuperheroDTO): Superhero {
     return this.repository.create(superheroDto);
