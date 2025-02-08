@@ -8,7 +8,7 @@ describe('AppController', () => {
 
   const serviceMock = {
     create: jest.fn(),
-    findAllOrderedByHumilityScore: jest.fn(),
+    findAllOrderedByHumilityScore: jest.fn().mockReturnValueOnce([]),
   };
 
   beforeAll(async () => {
@@ -36,5 +36,9 @@ describe('AppController', () => {
 
     jest.spyOn(serviceMock, 'create').mockReturnValueOnce(expectedRes);
     expect(controller.create(reqBody)).toEqual(expectedRes);
+  });
+
+  it('should get superheroes', () => {
+    expect(controller.findAll()).toEqual([]);
   });
 });

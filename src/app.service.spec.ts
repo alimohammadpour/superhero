@@ -8,7 +8,7 @@ describe('AppService', () => {
 
   const repositoryMock = {
     create: jest.fn(),
-    findAll: jest.fn(),
+    findAll: jest.fn().mockReturnValueOnce([]),
   };
 
   beforeAll(async () => {
@@ -36,5 +36,9 @@ describe('AppService', () => {
 
     jest.spyOn(repositoryMock, 'create').mockReturnValueOnce(expectedRes);
     expect(service.create(createSuperheroDto)).toEqual(expectedRes);
+  });
+
+  it('should get superheroes', () => {
+    expect(service.findAllOrderedByHumilityScore()).toEqual([]);
   });
 });
