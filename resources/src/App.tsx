@@ -1,23 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Button } from 'antd';
+import { NavigateFunction, useNavigate } from 'react-router';
 import './App.css';
 
 function App() {
+  const navigate: NavigateFunction = useNavigate();
+
+  const onclickNewSuperhero = () => navigate('/superhero');
+  
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Simple React App
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Button
+          color="primary" 
+          variant="dashed" 
+          size="large"
+          onClick={onclickNewSuperhero}
+          style={{ marginTop: '1%' }}
+          >
+          New Superhero
+        </Button>
       </header>
     </div>
   );
