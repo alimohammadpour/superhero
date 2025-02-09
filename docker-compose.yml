@@ -5,9 +5,16 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: node
-    volumes:
-      - .:/superhero
     ports:
       - "4010:4010"
     env_file:
       - ./.env
+  web:
+    build:
+      context: resources
+      dockerfile: Dockerfile
+    container_name: web
+    ports:
+      - "3000:3000"
+    depends_on:
+      - node
